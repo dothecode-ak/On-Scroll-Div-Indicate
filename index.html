@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On Scroll Div Indicate</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body {
+            padding: 20px;
+            color: #fff;
+            background: #1d1f20;
+            font: 14px/17px arial, sans-serif;
+        }
+        
+        .info {
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            top: 40%;
+            z-index: 10;
+        }
+        
+        .info p {
+            width: 450px;
+            margin: 0 auto;
+            padding: 10px;
+            background: #000;
+        }
+        
+        .info p span {
+            padding-top: 10px;
+            display: block;
+            color: red;
+        }
+        
+        .box {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+            background: #444;
+        }
+        
+        .box.orange {
+            background: orange;
+        }
+        
+        body {
+            padding: 20px;
+            color: #fff;
+            background: #1d1f20;
+            font: 14px/17px arial, sans-serif;
+        }
+        
+        .info {
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            top: 40%;
+            z-index: 10;
+        }
+        
+        .info p {
+            width: 450px;
+            margin: 0 auto;
+            padding: 10px;
+            background: #000;
+        }
+        
+        .info p span {
+            padding-top: 10px;
+            display: block;
+            color: red;
+        }
+        
+        .box {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+            background: #444;
+        }
+        
+        .box.orange {
+            background: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="info">
+        <p>There is an orange div lower on the screen.<br> Scroll down to detect if the orange box is within the visible viewport. <span>NO</span></p>
+    </div>
+
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box orange"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+
+    <div class="box"></div>
+    <div class="box orange orange1"></div>
+    <script>
+        $.fn.isOnScreen = function() {
+            var win = $(window);
+            var viewport = {
+                top: win.scrollTop(),
+                left: win.scrollLeft()
+            };
+            viewport.right = viewport.left + win.width();
+            viewport.bottom = viewport.top + win.height();
+            var bounds = this.offset();
+            bounds.right = bounds.left + this.outerWidth();
+            bounds.bottom = bounds.top + this.outerHeight();
+            return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+        };
+
+        $(window).scroll(function() {
+            if ($('.orange').isOnScreen()) {
+                $('.info p span').css({
+                    'color': 'green'
+                }).html('YES');
+            } else if ($('.orange1').isOnScreen()) {
+                $('.info p span').css({
+                    'color': 'green'
+                }).html('YES');
+            } else {
+                $('.info p span').css({
+                    'color': 'red'
+                }).html('NO');
+            }
+        });
+    </script>
+</body>
+
+</html>
